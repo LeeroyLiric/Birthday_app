@@ -10,8 +10,10 @@ namespace Сongratulator.Views
 {
     internal class ConsoleView
     {
+        
         public void BirthdayOut (Birthday birthday ) 
         {
+            
             Console.WriteLine(
                 birthday.Id.ToString() + " " +
                 birthday.BirthDate.ToShortDateString() + " " +
@@ -19,6 +21,7 @@ namespace Сongratulator.Views
                 birthday.LastName.ToString() + " " +
                 birthday.Surname.ToString()
                 );
+            
         }
 
         public string MessageRead(string text)
@@ -34,21 +37,21 @@ namespace Сongratulator.Views
 
         public Birthday AddingBirthday(Birthday birthday)
         {
-            Console.WriteLine();
+            Console.WriteLine(" ");
             
-            Console.WriteLine("Введите новую дату");
+            Console.WriteLine("Введите новую дату в формате mm/dd/yyyy");
             birthday.BirthDate = Convert.ToDateTime(Console.ReadLine());
             
-            Console.WriteLine("Введите новое имя");
+            Console.WriteLine("Введите новое имя латиницей");
             birthday.FirstName = Console.ReadLine();
             
-            Console.WriteLine("Введите новую фамилию");
+            Console.WriteLine("Введите новую фамилию латиницей");
             birthday.LastName = Console.ReadLine();
 
-            Console.WriteLine("Введите новое отчество");
+            Console.WriteLine("Введите новое отчество латиницей");
             birthday.Surname = Console.ReadLine();
 
-            Console.WriteLine();
+            Console.WriteLine(" ");
 
             return birthday;
         }

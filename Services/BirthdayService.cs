@@ -54,6 +54,10 @@ namespace Сongratulator.Services
             using (ApplicationContext db = new ApplicationContext())
             {
                 List<Birthday> lines = db.Birthdays.ToList();
+                foreach (var line in lines)
+                {
+                    line.BirthDate = line.BirthDate.ToLocalTime();
+                }
                 return lines;
             }
         }
@@ -71,7 +75,7 @@ namespace Сongratulator.Services
                         lines.Add(new Birthday
                         {
                             Id = record.Id,
-                            BirthDate = record.BirthDate,
+                            BirthDate = record.BirthDate.ToLocalTime(),
                             FirstName = record.FirstName,
                             LastName = record.LastName,
                             Surname = record.Surname
@@ -89,7 +93,7 @@ namespace Сongratulator.Services
             {
                 Birthday birthday = new Birthday {
                     Id = id, 
-                    BirthDate = time, 
+                    BirthDate = time.ToUniversalTime(), 
                     FirstName = firstName, 
                     LastName = lastName, 
                     Surname = surname 

@@ -11,9 +11,11 @@ namespace Сongratulator
             BirthdayController birthdayController = new();
             bool exit_flag = false;
 
+            birthdayController.ShowNear();
+
             do
             {
-                birthdayController.ShowNear();
+                
                 switch (birthdayController.UserChoise())
                 {
                     case "q":
@@ -28,6 +30,12 @@ namespace Сongratulator
                     case "3":
                         birthdayController.Adding();
                         break;
+                    case "4":
+                        birthdayController.Editing();
+                        break;
+                    case "5":
+                        birthdayController.Deleting();
+                        break;
                     default:
                         Console.WriteLine("Такой команды не существует!\n");
                         break;
@@ -35,12 +43,7 @@ namespace Сongratulator
             }
             while (!exit_flag);
 
-            /*
-            Console.WriteLine("Введите номер друга");
-            int n = Convert.ToInt32(Console.ReadLine());
-            var birth2 = birthdayService.Read(n);
-            Console.WriteLine(birth2.Id.ToString() + birth2.FirstName.ToString() + birth2.BirthDate.ToString());
-            */
+            
         }
     }
 
