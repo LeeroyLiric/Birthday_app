@@ -12,7 +12,7 @@ namespace Сongratulator.Services
 {
     public class BirthdayService
     {
-        public Birthday Create(DateTime time, string firstName, string lastName, string? surname )
+        public void Append(DateTime time, string firstName, string lastName, string? surname )
         {
             using(ApplicationContext db = new ApplicationContext())
             {
@@ -25,13 +25,11 @@ namespace Сongratulator.Services
                 };
                 
                 db.Birthdays.Add( birthday );
-                db.SaveChanges();
-
-                return birthday;
+                db.SaveChanges();  
             }    
         }
         
-        public Birthday Read(int id)
+        public Birthday ReadRecord(int id)
         {
             using (ApplicationContext db = new ApplicationContext())
             { 
@@ -49,6 +47,40 @@ namespace Сongratulator.Services
                 return birthday;
             }
 
+        }
+
+        public List<Birthday> GetAllBirthdays()
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                List<Birthday> lines = db.Birthdays.ToList();
+                return lines;
+            }
+        }
+
+        public List<Birthday> GetNearBirthdays()
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                List<Birthday> lines = new();
+                foreach (var record in db.Birthdays)
+                {
+                    if (Math.Abs(record.BirthDate.ToLocalTime().DayOfYear - DateTime.Now.DayOfYear) <= 7)
+                    {
+
+                        lines.Add(new Birthday
+                        {
+                            Id = record.Id,
+                            BirthDate = record.BirthDate,
+                            FirstName = record.FirstName,
+                            LastName = record.LastName,
+                            Surname = record.Surname
+                        });
+                    }
+                        
+                }
+                return lines;
+            }
         }
         
         public Birthday Update(int id, DateTime time, string firstName, string lastName, string? surname )
@@ -84,10 +116,6 @@ namespace Сongratulator.Services
 
         }
 
-
-        
-        
-
-
     }
+
 }
